@@ -5,7 +5,10 @@
   <groupId>org.yy</groupId>
   <artifactId>abestudy</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <modules>
+    <module>sm9</module>
+  </modules>
+  <packaging>pom</packaging>
 
   <name>abestudy</name>
 
@@ -43,6 +46,38 @@
       <artifactId>bcprov-jdk18on</artifactId>
       <version>1.71</version>
     </dependency>
+
+    <!--        <dependency>-->
+    <!--            <groupId>it.unisa.dia.gas</groupId>-->
+    <!--            <artifactId>jpbc-api</artifactId>-->
+    <!--            <version>2.0.0</version>-->
+    <!--            <scope>system</scope>-->
+    <!--            <systemPath>${pom.basedir}/libs/jpbc-api-2.0.0.jar</systemPath>-->
+    <!--        </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>it.unisa.dia.gas</groupId>-->
+    <!--            <artifactId>jpbc-plaf</artifactId>-->
+    <!--            <version>2.0.0</version>-->
+    <!--            <scope>system</scope>-->
+    <!--            <systemPath>${pom.basedir}/libs/jpbc-plaf-2.0.0.jar</systemPath>-->
+    <!--        </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>it.unisa.dia.gas</groupId>-->
+    <!--            <artifactId>jpbc-crypto</artifactId>-->
+    <!--            <version>2.0.0</version>-->
+    <!--            <scope>system</scope>-->
+    <!--            <systemPath>${pom.basedir}/libs/jpbc-crypto-2.0.0.jar</systemPath>-->
+    <!--        </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>org.bouncycastle</groupId>-->
+    <!--            <artifactId>bcprov-jdk18on</artifactId>-->
+    <!--            <version>1.71</version>-->
+    <!--            <scope>system</scope>-->
+    <!--            <systemPath>${pom.basedir}/libs/bcprov-jdk18on-1.71.jar</systemPath>-->
+    <!--        </dependency>-->
 
     <dependency>
       <groupId>junit</groupId>
