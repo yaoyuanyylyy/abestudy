@@ -14,6 +14,7 @@
 目前包含的算法：
 
 - SM9
+- SM9gbt
 
 # jpbc
 
@@ -249,3 +250,13 @@ SM9中的密钥包括：
   为了验证GBT中最后的测试，在test中把需要注入随机数的算法类重新拷贝一个并添加日志，这样就不影响常规代码。
   SM9Test中的 test_standard 的测试数据和GBT标准相符。
   test_parameters 中测试了参数的生成方法。
+
+# SM9gbt
+
+该项目是从 SM9 修改而来，用作后续的基于SM9的ABE算法。修改项如下：
+
+- 去掉了签名验签和密钥交换，只保留密钥封装解封、加密解密
+- 加解密中只适用基于KDF的序列密码算法
+- 去掉了不需要的签名相关密钥类，密钥类只有 SM9MasterSecretKey, SM9PublicKey, SM9SecretKey，和JPBC中的示例项目类似，只不过类后面没有加 Parameters 字符串。
+- 去掉配置类、曲线生成器和参数生成器，把显示使用曲线参数创建 SM9Parameters 的 createParameters 方法放在了 SM9 中。
+- 测试中去掉验证性测试
