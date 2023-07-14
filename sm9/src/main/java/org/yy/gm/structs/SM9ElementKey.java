@@ -1,5 +1,6 @@
 package org.yy.gm.structs;
 
+import org.yy.gm.SM9Utils;
 import org.yy.gm.params.SM9KeyParameters;
 import org.yy.gm.params.SM9Parameters;
 
@@ -30,5 +31,22 @@ public class SM9ElementKey extends SM9KeyParameters {
     public SM9ElementKey(boolean isPrivateKey, SM9Parameters parameters, Element g, boolean isSignKey, Element Q) {
         super(isPrivateKey, parameters, g, isSignKey);
         this.Q = Q;
+    }
+
+    public byte[] toByteArray() {
+        return Q.toBytes();
+    }
+
+    public static SM9ElementKey fromByteArray(boolean isPrivateKey, SM9Parameters parameters, boolean isSignKey, byte[] key) {
+        if(isPrivateKey) {
+            Element Q = isSignKey ? parameters.pairing.getG1().newElementFromBytes(key) : parameters.pairing.getG2().newElementFromBytes(key);
+            //注意这里的取反。此时的Q是私钥：签名私钥是和加密主公钥一样的在G1上；加密私钥是和签名主公钥一样的在G2上
+            Element g = SM9Utils.preE(parameters, Q, !isSignKey);
+            return isSignKey ? new SM9SignPrivateKey(parameters, g, Q) : new SM9EncryptPrivateKey(parameters, g, Q);
+        } else {
+            Element Q = isSignKey ? parameters.pairing.getG2().newElementFromBytes(key) : parameters.pairing.getG1().newElementFromBytes(key);
+            Element g = SM9Utils.preE(parameters, Q, isSignKey);
+            return isSignKey ? new SM9SignMasterPublicKey(parameters, g, Q) : new SM9EncryptMasterPublicKey(parameters, g, Q);
+        }
     }
 }

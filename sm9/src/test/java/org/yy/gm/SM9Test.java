@@ -1,6 +1,7 @@
 package org.yy.gm;
 
 import org.bouncycastle.crypto.CryptoException;
+import org.bouncycastle.util.encoders.Hex;
 import org.junit.Test;
 import org.yy.gm.cipher.CipherUtils;
 import org.yy.gm.generators.SM9CurveGenerator;
@@ -11,10 +12,14 @@ import org.yy.gm.structs.EnType;
 import org.yy.gm.structs.SM9Cipher;
 import org.yy.gm.structs.SM9Config;
 import org.yy.gm.structs.SM9EncryptMasterKeyPair;
+import org.yy.gm.structs.SM9EncryptMasterPrivateKey;
+import org.yy.gm.structs.SM9EncryptMasterPublicKey;
 import org.yy.gm.structs.SM9EncryptPrivateKey;
 import org.yy.gm.structs.SM9KeyAgreement;
 import org.yy.gm.structs.SM9KeyPackage;
 import org.yy.gm.structs.SM9SignMasterKeyPair;
+import org.yy.gm.structs.SM9SignMasterPrivateKey;
+import org.yy.gm.structs.SM9SignMasterPublicKey;
 import org.yy.gm.structs.SM9SignPrivateKey;
 import org.yy.gm.structs.SM9Signature;
 import org.yy.gm.test.SM9WithStandardTest;
@@ -46,19 +51,21 @@ import it.unisa.dia.gas.jpbc.PairingParameters;
 public class SM9Test {
     @Test
     public void sm9() throws Exception {
-        // test_sm9();
-        test_standard();
+         test_sm9();
+//        test_standard();
     }
 
     public static void test_sm9() throws CryptoException {
         SM9 sm9 = new SM9();
 
-        SM9LogUtils.showSM9Curve(sm9.getParameters());
+//        SM9LogUtils.showSM9Curve(sm9.getParameters());
 
-        test_sign(sm9);
-        test_key_exchange(sm9);
-        test_key_encapsulate(sm9);
-        test_encrypt(sm9);
+//        test_sign(sm9);
+//        test_key_exchange(sm9);
+//        test_key_encapsulate(sm9);
+//        test_encrypt(sm9);
+
+        test_key(sm9);
     }
 
     public static void test_standard() throws CryptoException {
@@ -116,6 +123,59 @@ public class SM9Test {
         }
     }
 
+    public static void test_key(SM9 sm9) {
+        String id_A = "Alice";
+
+        SM9EncryptMasterKeyPair encryptMasterKeyPair = sm9.genEncryptMasterKeyPair();
+
+        SM9LogUtils.showMsg("加密主私钥 ke:");
+        SM9LogUtils.showMasterPrivateKey(encryptMasterKeyPair.getPrivate());
+        byte[] temp = encryptMasterKeyPair.getPrivate().toByteArray();
+        SM9LogUtils.showMsg(Hex.toHexString(temp));
+        SM9LogUtils.showMsg(Hex.toHexString(SM9EncryptMasterPrivateKey.fromByteArray(sm9.getParameters(), temp).toByteArray()));
+        SM9LogUtils.showMsg();
+
+
+        SM9LogUtils.showMsg("加密主公钥 Ppub-e:");
+        SM9LogUtils.showMasterPublicKey(encryptMasterKeyPair.getPublic());
+        temp = encryptMasterKeyPair.getPublic().toByteArray();
+        SM9LogUtils.showMsg(Hex.toHexString(temp));
+        SM9LogUtils.showMsg(Hex.toHexString(SM9EncryptMasterPublicKey.fromByteArray(sm9.getParameters(), temp).toByteArray()));
+        SM9LogUtils.showMsg();
+
+        SM9EncryptPrivateKey encryptPrivateKey = sm9.genEncryptPrivateKey(encryptMasterKeyPair.getPrivate(), id_A);
+        SM9LogUtils.showMsg("加密私钥 de_A:");
+        SM9LogUtils.showPrivateKey(encryptPrivateKey);
+        temp = encryptPrivateKey.toByteArray();
+        SM9LogUtils.showMsg(Hex.toHexString(temp));
+        SM9LogUtils.showMsg(Hex.toHexString(SM9EncryptPrivateKey.fromByteArray(sm9.getParameters(), temp).toByteArray()));
+        SM9LogUtils.showMsg();
+
+
+        SM9SignMasterKeyPair signMasterKeyPair = sm9.genSignMasterKeyPair();
+        SM9LogUtils.showMsg("签名主私钥 ks:");
+        SM9LogUtils.showMasterPrivateKey(signMasterKeyPair.getPrivate());
+        temp = signMasterKeyPair.getPrivate().toByteArray();
+        SM9LogUtils.showMsg(Hex.toHexString(temp));
+        SM9LogUtils.showMsg(Hex.toHexString(SM9SignMasterPrivateKey.fromByteArray(sm9.getParameters(), temp).toByteArray()));
+        SM9LogUtils.showMsg();
+
+
+        SM9LogUtils.showMsg("签名主公钥 Ppub-s:");
+        SM9LogUtils.showMasterPublicKey(signMasterKeyPair.getPublic());
+        temp = signMasterKeyPair.getPublic().toByteArray();
+        SM9LogUtils.showMsg(Hex.toHexString(temp));
+        SM9LogUtils.showMsg(Hex.toHexString(SM9SignMasterPublicKey.fromByteArray(sm9.getParameters(), temp).toByteArray()));
+        SM9LogUtils.showMsg();
+
+        SM9LogUtils.showMsg("签名私钥 ds_A:");
+        SM9SignPrivateKey privateKey = sm9.genSignPrivateKey(signMasterKeyPair.getPrivate(), id_A);
+        SM9LogUtils.showPrivateKey(privateKey);
+        temp = privateKey.toByteArray();
+        SM9LogUtils.showMsg(Hex.toHexString(temp));
+        SM9LogUtils.showMsg(Hex.toHexString(SM9SignPrivateKey.fromByteArray(sm9.getParameters(), temp).toByteArray()));
+        SM9LogUtils.showMsg();
+    }
 
     public static void test_sign(SM9 sm9) {
         SM9LogUtils.showMsg("\n----------------------------------------------------------------------\n");

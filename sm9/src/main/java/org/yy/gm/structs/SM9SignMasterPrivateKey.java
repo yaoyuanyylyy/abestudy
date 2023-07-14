@@ -16,4 +16,8 @@ public class SM9SignMasterPrivateKey extends SM9MasterPrivateKey {
     public SM9SignMasterPrivateKey(SM9Parameters parameters, Element g, BigInteger k) {
         super(parameters, g, true, k);
     }
+
+    public static SM9SignMasterPrivateKey fromByteArray(SM9Parameters parameters, byte[] key) {
+        return (SM9SignMasterPrivateKey) SM9MasterPrivateKey.fromByteArray(parameters, true, key);
+    }
 }
