@@ -37,16 +37,16 @@ public class SM9ElementKey extends SM9KeyParameters {
         return Q.toBytes();
     }
 
-    public static SM9ElementKey fromByteArray(boolean isPrivateKey, SM9Parameters parameters, boolean isSignKey, byte[] key) {
-        if(isPrivateKey) {
-            Element Q = isSignKey ? parameters.pairing.getG1().newElementFromBytes(key) : parameters.pairing.getG2().newElementFromBytes(key);
-            //注意这里的取反。此时的Q是私钥：签名私钥是和加密主公钥一样的在G1上；加密私钥是和签名主公钥一样的在G2上
-            Element g = SM9Utils.preE(parameters, Q, !isSignKey);
-            return isSignKey ? new SM9SignPrivateKey(parameters, g, Q) : new SM9EncryptPrivateKey(parameters, g, Q);
-        } else {
-            Element Q = isSignKey ? parameters.pairing.getG2().newElementFromBytes(key) : parameters.pairing.getG1().newElementFromBytes(key);
-            Element g = SM9Utils.preE(parameters, Q, isSignKey);
-            return isSignKey ? new SM9SignMasterPublicKey(parameters, g, Q) : new SM9EncryptMasterPublicKey(parameters, g, Q);
-        }
+    protected static SM9ElementKey privateKeyFromByteArray(SM9MasterPublicKey masterPublicKey, boolean isSignKey, byte[] key) {
+        Element Q = isSignKey ? masterPublicKey.parameters.pairing.getG1().newElementFromBytes(key) :
+                masterPublicKey.parameters.pairing.getG2().newElementFromBytes(key);
+        return isSignKey ? new SM9SignPrivateKey(masterPublicKey.parameters, masterPublicKey.g, Q) :
+                new SM9EncryptPrivateKey(masterPublicKey.parameters, masterPublicKey.g, Q);
+    }
+
+    protected static SM9ElementKey publicKeyFromByteArray(SM9Parameters parameters, boolean isSignKey, byte[] key) {
+        Element Q = isSignKey ? parameters.pairing.getG2().newElementFromBytes(key) : parameters.pairing.getG1().newElementFromBytes(key);
+        Element g = SM9Utils.preE(parameters, Q, isSignKey);
+        return isSignKey ? new SM9SignMasterPublicKey(parameters, g, Q) : new SM9EncryptMasterPublicKey(parameters, g, Q);
     }
 }

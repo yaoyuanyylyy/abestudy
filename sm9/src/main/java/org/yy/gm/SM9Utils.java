@@ -196,13 +196,13 @@ public final class SM9Utils {
     }
 
     /**
-     * 将群G1上的点转换为字节数组。
+     * 将群G*上的点转换为字节数组。
      *
-     * @param e1 群G1上的点
+     * @param e 群G*上的点
      * @return 字节数组
      */
-    public static byte[] G1ElementToByte(Element e1) {
-        return e1.toBytes();
+    public static byte[] elementToByte(Element e) {
+        return e.toBytes();
     }
 
 

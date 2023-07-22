@@ -15,7 +15,7 @@ public class SM9EncryptPrivateKey extends SM9PrivateKey {
         super(parameters, g, false, Q);
     }
 
-    public static SM9EncryptPrivateKey fromByteArray(SM9Parameters parameters, byte[] key) {
-        return (SM9EncryptPrivateKey) SM9PrivateKey.fromByteArray(true, parameters, false, key);
+    public static SM9EncryptPrivateKey fromByteArray(SM9MasterPublicKey masterPublicKey, byte[] key) {
+        return (SM9EncryptPrivateKey) SM9PrivateKey.privateKeyFromByteArray(masterPublicKey, false, key);
     }
 }

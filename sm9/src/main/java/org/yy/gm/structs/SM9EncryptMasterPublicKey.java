@@ -16,6 +16,6 @@ public class SM9EncryptMasterPublicKey extends SM9MasterPublicKey {
     }
 
     public static SM9EncryptMasterPublicKey fromByteArray(SM9Parameters parameters, byte[] key) {
-        return (SM9EncryptMasterPublicKey) SM9MasterPublicKey.fromByteArray(false, parameters, false, key);
+        return (SM9EncryptMasterPublicKey) SM9MasterPublicKey.fromByteArray(parameters, false, key);
     }
 }

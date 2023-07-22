@@ -15,7 +15,7 @@ public class SM9PrivateKey extends SM9ElementKey {
         super(true, parameters, g, isSignKey, Q);
     }
 
-    public static SM9PrivateKey fromByteArray(SM9Parameters parameters, boolean isSignKey, byte[] key) {
-        return (SM9PrivateKey) SM9ElementKey.fromByteArray(true, parameters, isSignKey, key);
+    public static SM9PrivateKey fromByteArray(SM9MasterPublicKey masterPublicKey, boolean isSignKey, byte[] key) {
+        return (SM9PrivateKey) SM9ElementKey.privateKeyFromByteArray(masterPublicKey, isSignKey, key);
     }
 }

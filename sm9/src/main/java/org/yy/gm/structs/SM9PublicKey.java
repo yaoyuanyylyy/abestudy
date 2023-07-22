@@ -16,6 +16,6 @@ public class SM9PublicKey extends SM9ElementKey {
     }
 
     public static SM9PublicKey fromByteArray(SM9Parameters parameters, boolean isSignKey, byte[] key) {
-        return (SM9PublicKey) SM9ElementKey.fromByteArray(false, parameters, isSignKey, key);
+        return (SM9PublicKey) SM9ElementKey.publicKeyFromByteArray(parameters, isSignKey, key);
     }
 }

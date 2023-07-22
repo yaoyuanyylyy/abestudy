@@ -148,7 +148,7 @@ public class SM9Test {
         SM9LogUtils.showPrivateKey(encryptPrivateKey);
         temp = encryptPrivateKey.toByteArray();
         SM9LogUtils.showMsg(Hex.toHexString(temp));
-        SM9LogUtils.showMsg(Hex.toHexString(SM9EncryptPrivateKey.fromByteArray(sm9.getParameters(), temp).toByteArray()));
+        SM9LogUtils.showMsg(Hex.toHexString(SM9EncryptPrivateKey.fromByteArray(encryptMasterKeyPair.getPublic(), temp).toByteArray()));
         SM9LogUtils.showMsg();
 
 
@@ -173,7 +173,7 @@ public class SM9Test {
         SM9LogUtils.showPrivateKey(privateKey);
         temp = privateKey.toByteArray();
         SM9LogUtils.showMsg(Hex.toHexString(temp));
-        SM9LogUtils.showMsg(Hex.toHexString(SM9SignPrivateKey.fromByteArray(sm9.getParameters(), temp).toByteArray()));
+        SM9LogUtils.showMsg(Hex.toHexString(SM9SignPrivateKey.fromByteArray(encryptMasterKeyPair.getPublic(), temp).toByteArray()));
         SM9LogUtils.showMsg();
     }
 

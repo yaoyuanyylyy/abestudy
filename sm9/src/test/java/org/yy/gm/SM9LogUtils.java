@@ -60,7 +60,7 @@ public class SM9LogUtils {
         showMsg(toHexString(SM9Utils.bigIntegerToBytes(pairingParameters.getBigInteger("alpha1"))));
 
         showMsg("P1:");
-        showMsg(toHexString(SM9Utils.G1ElementToByte(parameters.P1)));
+        showMsg(toHexString(SM9Utils.elementToByte(parameters.P1)));
 
         showMsg("P2:");
         showMsg(toHexString(SM9Utils.G2ElementToByte(parameters.P2)));
@@ -78,14 +78,14 @@ public class SM9LogUtils {
         if (publicKey.isSignKey)
             showMsg(toHexString(SM9Utils.G2ElementToByte(publicKey.Q)));
         else
-            showMsg(toHexString(SM9Utils.G1ElementToByte(publicKey.Q)));
+            showMsg(toHexString(SM9Utils.elementToByte(publicKey.Q)));
         showMsg();
     }
 
     public static void showPrivateKey(SM9PrivateKey privateKey) {
         showMsg((privateKey.isSignKey ? "sign":"encrypt") + " private key:");
         if (privateKey.isSignKey)
-            showMsg(toHexString(SM9Utils.G1ElementToByte(privateKey.Q)));
+            showMsg(toHexString(SM9Utils.elementToByte(privateKey.Q)));
         else
             showMsg(toHexString(SM9Utils.G2ElementToByte(privateKey.Q)));
         showMsg();
@@ -94,7 +94,7 @@ public class SM9LogUtils {
     public static void showKeyPackage(SM9KeyPackage keyPackage) {
         showMsg("SM9 key package:");
         showMsg("C: ");
-        showMsg(toHexString(SM9Utils.G1ElementToByte(keyPackage.C)));
+        showMsg(toHexString(SM9Utils.elementToByte(keyPackage.C)));
         showMsg("K: ");
         showMsg(toHexString(keyPackage.K));
         showMsg();
@@ -105,7 +105,7 @@ public class SM9LogUtils {
         showMsg(toHexString(cipherText.toByteArray()));
         showMsg("EnType: " + cipherText.enType.toString());
         showMsg("C1: ");
-        showMsg(toHexString(SM9Utils.G1ElementToByte(cipherText.C1)));
+        showMsg(toHexString(SM9Utils.elementToByte(cipherText.C1)));
         showMsg("C2: ");
         showMsg(toHexString(cipherText.C2));
         showMsg("C3: ");
@@ -118,7 +118,7 @@ public class SM9LogUtils {
         showMsg("h: ");
         showMsg(toHexString(SM9Utils.bigIntegerToBytes(signature.h)));
         showMsg("S: ");
-        showMsg(toHexString(SM9Utils.G1ElementToByte(signature.S)));
+        showMsg(toHexString(SM9Utils.elementToByte(signature.S)));
         showMsg();
     }
 

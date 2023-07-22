@@ -34,7 +34,7 @@ public class SM9KeyExchangeTest {
         Element QB = SM9Utils.preQ(keyExchangeInitParameters.encryptMasterPublicKey, keyExchangeInitParameters.hid, keyExchangeInitParameters.peerId);
 
         SM9LogUtils.showMsg("QB:");
-        SM9LogUtils.showMsg(SM9LogUtils.toHexString(SM9Utils.G1ElementToByte(QB)));
+        SM9LogUtils.showMsg(SM9LogUtils.toHexString(SM9Utils.elementToByte(QB)));
 
         //Step2: generate r
         // BigInteger r = keyExchangeInitParameters.parameters.pairing.getZr().newRandomElement().getImmutable().toBigInteger();

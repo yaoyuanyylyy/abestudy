@@ -39,7 +39,7 @@ public class SM9KeyPackage {
 
     public byte[] getC() {
         // return C.toBytes();
-        return SM9Utils.G1ElementToByte(C);
+        return SM9Utils.elementToByte(C);
     }
 
     public static SM9KeyPackage fromByteArray(SM9KeyParameters keyParameters, byte[] in) {
